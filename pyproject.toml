@@ -6,7 +6,7 @@ authors = ["Vikash Tank <vikashtank@hotmail.co.uk>", "Thomas Leese <thomas@leese
 
 [tool.poetry.dependencies]
 python = "^3.9"
-pytest = "^5.2"
+pytest = "^6.0"
 pytest-selenium = "^2.0"
 
 [tool.poetry.dev-dependencies]
