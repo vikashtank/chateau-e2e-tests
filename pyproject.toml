@@ -6,9 +6,8 @@ authors = ["Vikash Tank <vikashtank@hotmail.co.uk>", "Thomas Leese <thomas@leese
 
 [tool.poetry.dependencies]
 python = "^3.9"
-
-[tool.poetry.dev-dependencies]
 pytest = "^5.2"
+pytest-selenium = "^2.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
