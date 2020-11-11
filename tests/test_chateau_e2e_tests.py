@@ -1,5 +1,11 @@
-from chateau_e2e_tests import __version__
+import pytest
 
 
-def test_version():
-    assert __version__ == '0.1.0'
+@pytest.mark.nondestructive
+def test_homepage(selenium, base_url):
+    selenium.get(base_url)
+
+    assert "Château" in selenium.title
+
+    selenium.find_element_by_link_text("Sign in")
+    selenium.find_element_by_link_text("Get started")
