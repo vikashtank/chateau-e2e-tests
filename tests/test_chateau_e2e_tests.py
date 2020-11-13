@@ -10,7 +10,7 @@ def selenium(selenium):
 
 
 @pytest.mark.nondestructive
-def __test_homepage(selenium, base_url):
+def test_homepage(selenium, base_url):
     selenium.get(base_url)
 
     assert "Château" in selenium.title
