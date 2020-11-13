@@ -1,3 +1,4 @@
+import os
 import uuid
 
 import pytest
@@ -40,3 +41,25 @@ def test_get_started(selenium, base_url):
     selenium.find_element_by_xpath(
         f'//*[text()="Sign in to {organisation_name}"]',
     )
+
+
+@pytest.mark.nondestructive
+def test_sign_in(selenium, base_url):
+    selenium.get(base_url)
+
+    selenium.find_element_by_link_text("Sign in").click()
+
+    organisation_input = selenium.find_element_by_name("organisation")
+    organisation_input.send_keys("test")
+
+    selenium.find_element_by_xpath('//button[text()="Sign in"]').click()
+
+    email_address_input = selenium.find_element_by_name("email_address")
+    email_address_input.send_keys("hello@orycion.com")
+
+    password_input = selenium.find_element_by_name("password")
+    password_input.send_keys(os.environ["PASSWORD"])
+
+    selenium.find_element_by_xpath('//button[text()="Log In"]').click()
+
+    selenium.find_element_by_xpath('//*[text()="test"]')

@@ -10,6 +10,10 @@ $ brew install chromedriver
 
 ## Running
 
+```sh
+$ export PASSWORD=<password>
+```
+
 ### Staging
 
 ```sh
