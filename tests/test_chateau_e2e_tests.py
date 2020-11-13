@@ -22,8 +22,7 @@ def test_homepage(selenium, base_url):
 def test_get_started(selenium, base_url):
     selenium.get(base_url)
 
-    get_started_link = selenium.find_element_by_link_text("Get started")
-    get_started_link.click()
+    selenium.find_element_by_link_text("Get started").click()
 
     organisation_name = str(uuid.uuid4())
     name_input = selenium.find_element_by_name("name")
