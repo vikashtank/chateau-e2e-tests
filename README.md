@@ -10,14 +10,18 @@ $ brew install chromedriver
 
 ## Running
 
+```sh
+$ export PASSWORD=<password>
+```
+
 ### Staging
 
-```bash
-$ poetry run pytest --driver Chrome --base-url "https://www.chateauapp.co"
+```sh
+$ poetry run pytest --driver Chrome --base-url "https://www.chateau-staging.com"
 ```
 
 ### Production
 
-```bash
-$ poetry run pytest --driver Chrome --base-url "https://www.chateau-staging.com"
+```sh
+$ poetry run pytest --driver Chrome --base-url "https://www.chateauapp.co"
 ```

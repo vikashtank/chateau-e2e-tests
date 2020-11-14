@@ -1,16 +1,11 @@
+import os
 import uuid
 
 import pytest
 
 
-@pytest.fixture
-def selenium(selenium):
-    selenium.implicitly_wait(10)
-    return selenium
-
-
 @pytest.mark.nondestructive
-def __test_homepage(selenium, base_url):
+def test_homepage(selenium, base_url):
     selenium.get(base_url)
 
     assert "Château" in selenium.title
@@ -22,8 +17,7 @@ def __test_homepage(selenium, base_url):
 def test_get_started(selenium, base_url):
     selenium.get(base_url)
 
-    get_started_link = selenium.find_element_by_link_text("Get started")
-    get_started_link.click()
+    selenium.find_element_by_link_text("Get started").click()
 
     organisation_name = str(uuid.uuid4())
     name_input = selenium.find_element_by_name("name")
@@ -41,3 +35,25 @@ def test_get_started(selenium, base_url):
     selenium.find_element_by_xpath(
         f'//*[text()="Sign in to {organisation_name}"]',
     )
+
+
+@pytest.mark.nondestructive
+def test_sign_in(selenium, base_url):
+    selenium.get(base_url)
+
+    selenium.find_element_by_link_text("Sign in").click()
+
+    organisation_input = selenium.find_element_by_name("organisation")
+    organisation_input.send_keys("test")
+
+    selenium.find_element_by_xpath('//button[text()="Sign in"]').click()
+
+    email_address_input = selenium.find_element_by_name("email_address")
+    email_address_input.send_keys("hello@orycion.com")
+
+    password_input = selenium.find_element_by_name("password")
+    password_input.send_keys(os.environ["PASSWORD"])
+
+    selenium.find_element_by_xpath('//button[text()="Log In"]').click()
+
+    selenium.find_element_by_xpath('//*[text()="test"]')
