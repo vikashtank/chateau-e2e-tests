@@ -3,7 +3,7 @@ import pytest
 
 @pytest.fixture
 def selenium(selenium):
-    selenium.implicitly_wait(10)
+    selenium.implicitly_wait(6)
     return selenium
 
 
