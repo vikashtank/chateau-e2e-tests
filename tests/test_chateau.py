@@ -1,4 +1,5 @@
 import os
+import time
 import uuid
 
 import pytest
@@ -40,9 +41,34 @@ def test_sign_in(selenium, base_url):
     fill_input(selenium, name="organisation", value="test")
     click_button(selenium, text="Sign in")
 
-    fill_form(
+    sign_in(
         selenium, email_address="hello@orycion.com", password=os.environ["PASSWORD"]
     )
-    click_button(selenium, text="Log In")
 
     selenium.find_element_by_xpath('//*[text()="test"]')
+
+
+def test_subscribe(selenium, base_url, organisation_name):
+    selenium.get(base_url)
+
+    create_organisation_and_sign_in(selenium, name=organisation_name)
+
+    click_link(selenium, text="Settings")
+
+    click_button(selenium, text="Change payment details")
+
+    selenium.switch_to.frame(selenium.find_element_by_xpath("//iframe"))
+
+    fill_form(
+        selenium,
+        cardnumber="4242424242424242",
+        cvc="123",
+        postal="12345",
+        **{"exp-date": "10 / 30"},
+    )
+
+    selenium.switch_to.default_content()
+
+    selenium.find_element_by_xpath(f'(//button[text()="Save"])[2]').click()
+
+    selenium.find_element_by_xpath('//*[text()="Success!"]')
