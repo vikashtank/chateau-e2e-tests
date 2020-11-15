@@ -40,9 +40,8 @@ def test_sign_in(selenium, base_url):
     fill_input(selenium, name="organisation", value="test")
     click_button(selenium, text="Sign in")
 
-    fill_form(
+    sign_in(
         selenium, email_address="hello@orycion.com", password=os.environ["PASSWORD"]
     )
-    click_button(selenium, text="Log In")
 
     selenium.find_element_by_xpath('//*[text()="test"]')

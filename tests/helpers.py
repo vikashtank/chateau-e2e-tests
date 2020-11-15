@@ -24,11 +24,27 @@ def fill_form(selenium, **kwargs):
 def create_organisation(selenium, *, name):
     click_link(selenium, text="Get started")
 
+    email_address = "test@example.com"
+    password = str(uuid.uuid4())
+
     fill_form(
         selenium,
         name=name,
-        owner_email_address="test@example.com",
-        owner_password=str(uuid.uuid4()),
+        owner_email_address=email_address,
+        owner_password=password,
     )
 
     click_button(selenium, text="Let's go!")
+
+    return email_address, password
+
+
+def sign_in(selenium, *, email_address, password):
+    fill_form(selenium, email_address=email_address, password=password)
+
+    click_button(selenium, text="Log In")
+
+
+def create_organisation_and_sign_in(selenium, *, name):
+    email_address, password = create_organisation(selenium, name=name)
+    sign_in(selenium, email_address=email_address, password=password)
