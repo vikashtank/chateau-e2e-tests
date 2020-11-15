@@ -3,6 +3,13 @@ import uuid
 
 import pytest
 
+from .helpers import *
+
+
+@pytest.fixture
+def organisation_name():
+    return str(uuid.uuid4())
+
 
 @pytest.mark.nondestructive
 def test_homepage(selenium, base_url):
@@ -14,23 +21,10 @@ def test_homepage(selenium, base_url):
     selenium.find_element_by_link_text("Get started")
 
 
-def test_get_started(selenium, base_url):
+def test_get_started(selenium, base_url, organisation_name):
     selenium.get(base_url)
 
-    selenium.find_element_by_link_text("Get started").click()
-
-    organisation_name = str(uuid.uuid4())
-    name_input = selenium.find_element_by_name("name")
-    name_input.send_keys(organisation_name)
-
-    email_address_input = selenium.find_element_by_name("owner_email_address")
-    email_address_input.send_keys("test@example.com")
-
-    password_input = selenium.find_element_by_name("owner_password")
-    password_input.send_keys(str(uuid.uuid4()))
-
-    submission_button = selenium.find_element_by_xpath('//button[text()="Let\'s go!"]')
-    submission_button.click()
+    create_organisation(selenium, name=organisation_name)
 
     selenium.find_element_by_xpath(
         f'//*[text()="Sign in to {organisation_name}"]',
@@ -41,19 +35,14 @@ def test_get_started(selenium, base_url):
 def test_sign_in(selenium, base_url):
     selenium.get(base_url)
 
-    selenium.find_element_by_link_text("Sign in").click()
+    click_link(selenium, text="Sign in")
 
-    organisation_input = selenium.find_element_by_name("organisation")
-    organisation_input.send_keys("test")
+    fill_input(selenium, name="organisation", value="test")
+    click_button(selenium, text="Sign in")
 
-    selenium.find_element_by_xpath('//button[text()="Sign in"]').click()
-
-    email_address_input = selenium.find_element_by_name("email_address")
-    email_address_input.send_keys("hello@orycion.com")
-
-    password_input = selenium.find_element_by_name("password")
-    password_input.send_keys(os.environ["PASSWORD"])
-
-    selenium.find_element_by_xpath('//button[text()="Log In"]').click()
+    fill_form(
+        selenium, email_address="hello@orycion.com", password=os.environ["PASSWORD"]
+    )
+    click_button(selenium, text="Log In")
 
     selenium.find_element_by_xpath('//*[text()="test"]')
