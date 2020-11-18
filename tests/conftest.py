@@ -1,11 +1,18 @@
 import os
+import uuid
 
 import pytest
 
 
+@pytest.fixture()
+def organisation_name():
+    return str(uuid.uuid4())
+
+
 @pytest.fixture
-def selenium(selenium):
+def selenium(selenium, base_url):
     selenium.implicitly_wait(6)
+    selenium.get(base_url)
     return selenium
 
 
