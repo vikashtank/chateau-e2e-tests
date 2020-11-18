@@ -2,7 +2,7 @@ from . import helpers
 
 
 def search(selenium, *, value):
-    helpers.get_element(selenium, "div", text="Search").click()
+    helpers.find_element(selenium, "div", text="Search").click()
     helpers.fill_input(selenium, value=value, aria_label="Search")
 
 
@@ -20,4 +20,4 @@ def test_finds_property(selenium, organisation_name):
     helpers.click_link(selenium, text=group_name)
 
     # test group column is displayed
-    helpers.get_element(selenium, "h5", text=group_name)
+    helpers.find_element(selenium, "h5", text=group_name)

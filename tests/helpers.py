@@ -1,7 +1,7 @@
 import uuid
 
 
-def get_element(selenium, type, text=None, aria_label=None, name=None):
+def find_element(selenium, type, text=None, aria_label=None, name=None):
     if text is not None:
         return selenium.find_element_by_xpath(f'//{type}[.="{text}"]')
     elif aria_label is not None:
@@ -15,15 +15,15 @@ def get_element(selenium, type, text=None, aria_label=None, name=None):
 
 
 def click_link(selenium, *args, **kwargs):
-    get_element(selenium, "a", *args, **kwargs).click()
+    find_element(selenium, "a", *args, **kwargs).click()
 
 
 def click_button(selenium, *args, **kwargs):
-    get_element(selenium, "button", *args, **kwargs).click()
+    find_element(selenium, "button", *args, **kwargs).click()
 
 
 def fill_input(selenium, *, value, **kwargs):
-    get_element(selenium, "input", **kwargs).send_keys(value)
+    find_element(selenium, "input", **kwargs).send_keys(value)
 
 
 def fill_form(selenium, **kwargs):
