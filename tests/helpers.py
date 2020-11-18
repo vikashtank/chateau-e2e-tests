@@ -49,6 +49,16 @@ def create_organisation(selenium, *, name):
     return email_address, password
 
 
+def create_group(selenium, *, name):
+    click_link(selenium, text="Properties")
+
+    click_button(selenium, aria_label="Create group")
+
+    fill_form(selenium, name=name)
+
+    click_button(selenium, text="Save")
+
+
 def sign_in(selenium, *, email_address, password):
     fill_form(selenium, email_address=email_address, password=password)
 
