@@ -1,19 +1,29 @@
 import uuid
 
 
-def click_link(selenium, *, text):
-    element = selenium.find_element_by_link_text(text)
-    element.click()
+def get_element(selenium, type, text=None, aria_label=None, name=None):
+    if text is not None:
+        return selenium.find_element_by_xpath(f'//{type}[.="{text}"]')
+    elif aria_label is not None:
+        return selenium.find_element_by_xpath(f'//{type}[@aria-label="{aria_label}"]')
+    elif name is not None:
+        return selenium.find_element_by_xpath(f'//{type}[@name="{name}"]')
+    else:
+        raise ValueError(
+            "Invalid argument provided, please ensure either aria_label or text is given"
+        )
 
 
-def click_button(selenium, *, text):
-    element = selenium.find_element_by_xpath(f'//button[text()="{text}"]')
-    element.click()
+def click_link(selenium, *args, **kwargs):
+    get_element(selenium, "a", *args, **kwargs).click()
 
 
-def fill_input(selenium, *, name, value):
-    element = selenium.find_element_by_name(name)
-    element.send_keys(value)
+def click_button(selenium, *args, **kwargs):
+    get_element(selenium, "button", *args, **kwargs).click()
+
+
+def fill_input(selenium, *, value, **kwargs):
+    get_element(selenium, "input", **kwargs).send_keys(value)
 
 
 def fill_form(selenium, **kwargs):
