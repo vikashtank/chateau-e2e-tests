@@ -1,12 +1,7 @@
 from . import helpers
 
 
-def search(selenium, *, value):
-    helpers.find_element(selenium, "div", text="Search").click()
-    helpers.fill_input(selenium, value=value, aria_label="Search")
-
-
-def test_finds_property(selenium, organisation_name):
+def test_group(selenium, organisation_name):
     group_name = "My Group"
 
     helpers.create_organisation_and_sign_in(selenium, name=organisation_name)
@@ -15,9 +10,10 @@ def test_finds_property(selenium, organisation_name):
     # Go to homepage to avoid two links with the name 'My Group'
     helpers.click_link(selenium, text="Château")
 
-    search(selenium, value=group_name)
+    helpers.find_element(selenium, "div", text="Search").click()
+    helpers.fill_input(selenium, value=group_name, aria_label="Search")
 
     helpers.click_link(selenium, text=group_name)
 
-    # test group column is displayed
+    # Ensure group column is displayed
     helpers.find_element(selenium, "h5", text=group_name)
