@@ -1,3 +1,4 @@
+import time
 import uuid
 
 
@@ -57,6 +58,7 @@ def create_group(selenium, *, name):
     fill_form(selenium, name=name)
 
     click_button(selenium, text="Save")
+    time.sleep(1)  # for the modal to disappear
 
 
 def sign_in(selenium, *, email_address, password):
