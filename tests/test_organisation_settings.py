@@ -1,7 +1,7 @@
 from . import helpers
 
 
-def test_subscribe(selenium, organisation_name):
+def test_payment_subscribe(selenium, organisation_name):
     helpers.create_organisation_and_sign_in(selenium, name=organisation_name)
 
     helpers.click_link(selenium, text="Settings")
