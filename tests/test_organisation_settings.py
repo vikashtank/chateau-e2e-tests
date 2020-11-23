@@ -39,6 +39,6 @@ def test_payment_subscribe(selenium, organisation_name):
 
     selenium.switch_to.default_content()
 
-    selenium.find_element_by_xpath('(//button[text()="Save"])[2]').click()
+    selenium.find_element_by_xpath('//button[text()="Save"]').click()
 
     selenium.find_element_by_xpath('//*[text()="Success!"]')
