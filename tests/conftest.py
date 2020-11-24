@@ -11,7 +11,7 @@ def organisation_name():
 
 @pytest.fixture
 def selenium(selenium, base_url):
-    selenium.implicitly_wait(6)
+    selenium.implicitly_wait(8)
     selenium.get(base_url)
     return selenium
 
